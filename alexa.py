@@ -6,15 +6,7 @@ import uuid
 def get_token(self, refresh=False):
     """Returns AVS access token.
 
-    If first call, will send a request to AVS to obtain the token
-    and save it for future use.
 
-    Args:
-        refresh (bool): If set to True, will send a request to AVS
-                        to refresh the token even if one's saved.
-
-    Returns:
-        AVS access token (str)
     """
     # Return saved token if one exists.
     if self._token and not refresh:
@@ -36,14 +28,7 @@ def get_token(self, refresh=False):
 def get_request_params(self):
     """Returns AVS request parameters
 
-    Returns a tuple of parameters needed for an AVS request.
 
-    Returns:
-        Tuple (url, headers, request_data) where,
-
-           url (str): Request URL
-           headers (dict): Request headers
-           request_data (dict): Predefined request payload parameters
     """
     url = "https://access-alexa-na.amazon.com/v1"
     url += "/avs/speechrecognizer/recognize"
@@ -74,16 +59,7 @@ def get_request_params(self):
 def save_response_audio(self, res, save_to=None):
     """Saves the audio from AVS response to a file
 
-    Parses the AVS response object and saves the audio to a file.
-
-    Args:
-        res (requests.Response): Response object from request.
-        save_to (str): Filename including path for saving the
-                       audio. If `None` a random filename will
-                       be used and saved in the `TEMP_DIR`.
-
-    Returns:
-        Path (str) to where the audio file is saved.
+   .
     """
     if not save_to:
         save_to = "{}/{}.mp3".format(settings.TEMP_DIR, uuid.uuid4())
@@ -108,14 +84,7 @@ def ask(self, audio_file, save_to=None):
     """
     Send a command to Alexa
 
-    Sends a single command to AVS.
-
-    Args:
-        audio_file (str): File path to the command audio file.
-        save_to (str): File path to save the audio response (mp3).
-
-    Returns:
-        File path for the response audio file (str).
+   
     """
     with open(audio_file) as in_f:
         url, headers, request_data = self.get_request_params()
